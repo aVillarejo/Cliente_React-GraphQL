@@ -10,7 +10,7 @@ import NuevoCliente from './components/NuevoCliente';
 import EditarCliente from './components/EditarCliente';
 
 const client = new ApolloClient({
-	uri: `http://localhost:9000/graphql`,
+	uri: `http://192.168.1.74:9000/graphql`,
 	onError: ({ networkError, graphQLErrors }) => {
 		console.log('graphQLErrors', graphQLErrors);
 		console.log('networkError', networkError);

@@ -44,14 +44,16 @@ class NuevoCliente extends Component {
 			emails: nuevoEmail
 		});
 	};
-	handleRemoveEmail = (i, input) => {
-		this.setState({
-			emails: this.state.emails.filter((email, index) => {
-				return i !== index;
-			})
+	handleRemoveEmail = (i) => {
+		// let newItems = this.state.emails.filter((email, index) => i !== index);
+		// this.setState({
+		// 	emails: newItems
+		// });
+
+		this.setState((state) => {
+			const emails = state.emails.filter((item, j) => i !== j);
+			return { emails };
 		});
-		console.log('Elimino: email ', i);
-		console.log('valor: ', input);
 	};
 
 	render() {
@@ -138,19 +140,19 @@ class NuevoCliente extends Component {
 									{this.state.emails.map((input, index) => (
 										<div key={index} className="form-group col-md-12">
 											<label>Correo {index + 1}: </label>
-											<div className="input-group ">
+											<div className="input-group">
 												<input
-													name={`email${index}`}
 													onChange={this.handleEmailValue(index)}
-													type="email"
+													value={`${this.state.emails[index].email}`}
 													placeholder="Email"
+													type="email"
 													className="form-control"
 												/>
 												<div className="input-group-append">
 													<button
 														className="btn btn-danger"
 														type="button"
-														onClick={() => this.handleRemoveEmail(index, input)}
+														onClick={() => this.handleRemoveEmail(index)}
 													>
 														&times; Eliminar
 													</button>
