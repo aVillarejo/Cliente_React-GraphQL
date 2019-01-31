@@ -9,12 +9,11 @@ class NuevoCliente extends Component {
 			nombre: '',
 			apellido: '',
 			empresa: '',
-			email: '',
 			tipo: '',
 			edad: 0
 		},
 		error: false,
-		emails: []
+		emails: [ { email: '' } ]
 	};
 
 	handleChange = (event) => {
@@ -32,7 +31,7 @@ class NuevoCliente extends Component {
 		});
 	};
 
-	handleEmailValue = (i) => (e) => {
+	handleEmailValue = (i, e) => {
 		const nuevoEmail = this.state.emails.map((email, index) => {
 			if (i !== index) return email;
 			return {
@@ -44,6 +43,7 @@ class NuevoCliente extends Component {
 			emails: nuevoEmail
 		});
 	};
+
 	handleRemoveEmail = (i) => {
 		// let newItems = this.state.emails.filter((email, index) => i !== index);
 		// this.setState({
@@ -74,7 +74,9 @@ class NuevoCliente extends Component {
 								className="col-md-8 m-3"
 								onSubmit={(e) => {
 									e.preventDefault();
-									const { nombre, apellido, empresa, email, tipo, edad } = this.state.cliente;
+									const { nombre, apellido, empresa, tipo, edad } = this.state.cliente;
+									const { emails } = this.state;
+
 									if (nombre && apellido && empresa && tipo && edad) {
 										this.setState({
 											error: false
@@ -83,7 +85,7 @@ class NuevoCliente extends Component {
 											nombre,
 											apellido,
 											empresa,
-											email,
+											emails,
 											tipo,
 											edad: Number(edad)
 										};
@@ -142,7 +144,7 @@ class NuevoCliente extends Component {
 											<label>Correo {index + 1}: </label>
 											<div className="input-group">
 												<input
-													onChange={this.handleEmailValue(index)}
+													onChange={(event) => this.handleEmailValue(index, event)}
 													value={`${this.state.emails[index].email}`}
 													placeholder="Email"
 													type="email"
@@ -161,7 +163,11 @@ class NuevoCliente extends Component {
 										</div>
 									))}
 									<div className="form-group d-flex justify-content-center col-md-12">
-										<button type="button" className="btn btn-warning" onClick={this.nuevoCampo}>
+										<button
+											type="button"
+											className="btn btn-warning"
+											onClick={() => this.nuevoCampo()}
+										>
 											Agregar Email
 										</button>
 									</div>

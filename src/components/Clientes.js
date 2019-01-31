@@ -9,11 +9,10 @@ import { CLIENTES_QUERY } from '../queries';
 
 const Contactos = () => (
 	/*
-loading: se muestra mientras se esta cargarndo la información
-error: mustra los errores encontrados
-data: datos encontrados
-*/
-
+	loading: se muestra mientras se esta cargarndo la información
+	error: mustra los errores encontrados
+	data: datos encontrados
+	*/
 	<Query query={CLIENTES_QUERY} pollInterval={500}>
 		{({ loading, error, data, startPolling, stopPolling }) => {
 			if (loading) return <Spinner />;
@@ -29,6 +28,7 @@ data: datos encontrados
 								<th scope="col">#</th>
 								<th scope="col">Nombre</th>
 								<th scope="col">Apellido</th>
+								<th scope="col">Empresa</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -37,6 +37,7 @@ data: datos encontrados
 									<th scope="row">{index + 1}</th>
 									<td>{item.nombre}</td>
 									<td>{item.apellido}</td>
+									<td>{item.empresa}</td>
 									<td className=" d-flex justify-content-end ">
 										<Link
 											className="btn btn-info d-block d-md-inline-block"
@@ -50,25 +51,6 @@ data: datos encontrados
 							))}
 						</tbody>
 					</table>
-					{/* <ul className="list-group">
-						{clientes.map((item) => (
-							<li key={item.id} className="list-group-item">
-								<div className="row justify-content-between align-items-center">
-									<div className="col-md-8 d-flex justify-content-between align-items-center">
-										{item.nombre} {item.apellido}
-									</div>
-									<div className="col-md-4 d-flex justify-content-end">
-										<a
-											className="btn btn-info d-block d-md-inline-block"
-											style={{ color: 'white' }}
-										>
-											Editar Cliente
-										</a>
-									</div>
-								</div>
-							</li>
-						))}
-					</ul> */}
 				</Fragment>
 			);
 		}}
