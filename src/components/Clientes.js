@@ -1,11 +1,12 @@
 import React, { Fragment } from 'react';
-import { Query } from 'react-apollo';
+import { Query, Mutation } from 'react-apollo';
 import { Link } from 'react-router-dom';
 
 import Spinner from './Spinner';
 
 //importacion de consulta
 import { CLIENTES_QUERY } from '../queries';
+import { ELIMINAR_CLIENTE } from '../mutations';
 
 const Contactos = () => (
 	/*
@@ -27,28 +28,49 @@ const Contactos = () => (
 							<tr>
 								<th scope="col">#</th>
 								<th scope="col">Nombre</th>
-								<th scope="col">Apellido</th>
 								<th scope="col">Empresa</th>
 							</tr>
 						</thead>
 						<tbody>
-							{clientes.map((item, index) => (
-								<tr key={index}>
-									<th scope="row">{index + 1}</th>
-									<td>{item.nombre}</td>
-									<td>{item.apellido}</td>
-									<td>{item.empresa}</td>
-									<td className=" d-flex justify-content-end ">
-										<Link
-											className="btn btn-info d-block d-md-inline-block"
-											style={{ color: 'white' }}
-											to={`/cliente/editar/${item.id}`}
-										>
-											Editar
-										</Link>
-									</td>
-								</tr>
-							))}
+							{clientes.map((item, index) => {
+								const { id } = item;
+								return (
+									<tr key={item.id}>
+										<th scope="row">{index + 1}</th>
+										<td>
+											{item.nombre} {item.apellido}
+										</td>
+										<td>{item.empresa}</td>
+										<td className=" d-flex justify-content-end ">
+											<Link
+												className="btn btn-info d-block d-md-inline-block"
+												style={{ color: 'white', margin: 2 }}
+												to={`/cliente/editar/${item.id}`}
+											>
+												Editar
+											</Link>
+											<Mutation mutation={ELIMINAR_CLIENTE}>
+												{(eliminarCliente) => (
+													<button
+														type="button"
+														style={{ color: 'white', margin: 2 }}
+														className="btn btn-danger d-block d-md-inline-block"
+														onClick={() => {
+															if (
+																window.confirm('Realmente deseas eliminar el cliente')
+															) {
+																eliminarCliente({ variables: { id } });
+															}
+														}}
+													>
+														&times; Eliminar
+													</button>
+												)}
+											</Mutation>
+										</td>
+									</tr>
+								);
+							})}
 						</tbody>
 					</table>
 				</Fragment>
