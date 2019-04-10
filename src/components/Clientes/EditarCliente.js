@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from "react";
 import { CLIENTE_QUERY } from "../../queries";
 import { Query } from "react-apollo";
+
 import Spinner from "../Layout/Spinner";
 import Formulario from "./Form_EditarCliente";
 class EditarCliente extends Component {

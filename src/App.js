@@ -14,7 +14,8 @@ import NuevoProducto from "./components/Productos/NuevoProducto";
 import EditarProducto from "./components/Productos/EditarProducto";
 
 const client = new ApolloClient({
-  uri: `http://192.168.1.74:9000/graphql`,
+  uri: "https://crm-server-test.herokuapp.com/graphql",
+  //uri: `http://localhost:4001/graphql`,
   cache: new InMemoryCache({
     addTypename: false
   }),

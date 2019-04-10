@@ -10,7 +10,7 @@ import { CLIENTES_QUERY } from "../../queries";
 import { ELIMINAR_CLIENTE } from "../../mutations";
 
 class Clientes extends Component {
-  limite = 10;
+  limite = 2;
   state = {
     paginador: {
       offset: 0,
